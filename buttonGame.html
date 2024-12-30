@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title> The Button Game</title>
+    </head>
+    <h1 style="text-align:center"> The Button Game </h1>
+    <p style="text-align:center"> The Button Game is a simple game I've made where you can click the button
+        to increment your total score on this page. Have fun :)
+    </p>
+    <!-- Body for the button -->
+    <body style="text-align:center">
+        <span>Your score: </span> <span id="playerScore">0</span>
+        <div>
+            <button style="align-self:center;" onclick="increment()">CLICK ME!!!</button>
+        </div>
+        <!-- inline javascript code for the button -->
+        <script>
+            let count = 0;
+            const playerScore = document.getElementById("playerScore");
+
+            function increment() {
+                count++; // increment the score
+                playerScore.innerText = count;
+                console.log("incremented score")
+            }
+        </script>
+    </body>
+</html>
