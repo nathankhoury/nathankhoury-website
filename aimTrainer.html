@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Aim Trainer</title>
+<style>
+    /* The .button code below is sampled from w3schools.com as a model*/
+    .button {
+        background-color: #b0b0b0;
+        border: none;
+        color: white;
+        padding: 16px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 0px 0px;
+        cursor: pointer;
+    }
+    .buttonInactive {
+        background-color: #b0b0b0;
+    }
+    .buttonTarget {
+        background-color: red;
+    }
+    .buttonGameOver {
+        background-color: rgb(151, 105, 195);
+    }
+    .buttonGrid {
+        display: grid;
+        grid-template-columns: repeat(5, 100px);  /* repeat 5 times for 100px width each  */
+        grid-template-rows: repeat(5, 100px);     /* repeat 5 times for 100px height each */
+        gap: 0px;
+        margin: auto; 
+        aspect-ratio: 1;
+    }
+
+</style>
+</head>
+
+<div>
+    <p>Welcome to the "Aim Trainer", a game where you race to click as many highlighted buttons as possible!</p>
+    <p>You will have 15 seconds, starting from the moment you click the initial red button, to click as many buttons as you can.<br>
+        The next red button will be randomly selected at the moment you click the current red button, so be quick! :)
+    </p>
+    <p><strong><span style="color:rgb(185, 0, 0)">NOTE:</span> High score will reset upon page refresh</strong></p>
+    <strong><span style="font-size: 36px">Time remaining: <span id="timer">15</span> seconds</span><strong>
+    <br>
+    <strong><span style="font-size: 36px; color:rgb(31, 219, 106)">Score: <span id="playerScore">0</span></span></strong>
+    <br>
+    <strong><span style="font-size: 36px; color:goldenrod">High Score: <span id="playerHighScore">0</span></span></strong>
+    <p><a href="index.html">Return</a> to main page</p>
+</div>
+<button style="margin: 20px auto" onclick="resetGame()">reset grid</button>
+<body style="background-color:rgb(158, 108, 129)" onload="initButtons()">
+    <div class="buttonGrid" id="button-container"></div>
+    <script>
+        const buttonArr = [];   // add buttons to this array
+        var score = 0;  // track player score
+        var highscore = score;
+        var index = 12; // start at center square
+        var timeLeft = 15;
+        var timerInterval;
+        const playerHighScore = document.getElementById("playerHighScore"); // playerHighScore text
+        const timer = document.getElementById("timer");             // in seconds
+        const playerScore = document.getElementById("playerScore"); // playerScore text
+
+        function initButtons() {
+            for (let i = 0; i < 25; i++) {
+                // create a button
+                var button = document.createElement("button");
+                if (i === 12) {
+                    // center button should be the starting button
+                    button.setAttribute("class", "buttonTarget");
+                    // start the game when clicked
+                    button.addEventListener("click", startGame);
+                } else {
+                    // enforce buttonInactive form
+                    button.setAttribute("class", "buttonInactive");
+                }
+                // add to array
+                buttonArr[i] = button;
+                // print success message
+                console.log("made button");
+            }
+            printButtons();
+        }
+
+        function printButtons() {
+            // grab <div> to fill with button grid
+            const container = document.getElementById("button-container");
+            // clear <div> to be safe
+            container.innerHTML = "";
+            // add buttons to <div>
+            for (let i = 0; i < buttonArr.length; i++) {
+                container.appendChild(buttonArr[i]);
+            }
+        }
+
+        function startGame() {
+            // zero the score
+            score = 0;
+            playerScore.innerText = score;
+            // start timer
+            timerInterval = setInterval(updateTimer, 1000);
+            // change button color after click
+            buttonArr[12].setAttribute("class", "buttonInactive");
+            // remove the event listener
+            buttonArr[12].removeEventListener("click", startGame);
+            // increment score
+            score++;
+            playerScore.innerText = score;
+            console.log("incremented score");
+            // get random button index
+            index = Math.floor(Math.random() * 25);
+            // make target button red
+            buttonArr[index].setAttribute("class", "buttonTarget");
+            // add event listener
+            buttonArr[index].addEventListener("click", increment);
+        }
+
+        function endGame() {
+            // remove button events (lock the score)
+            buttonArr[index].removeEventListener("click", increment);
+            // change button colors
+            for (let i = 0; i < buttonArr.length; i++) {
+                buttonArr[i].setAttribute("class", "buttonGameOver")
+            }
+            if (score > highscore) {
+                highscore = score;
+                playerHighScore.innerText = highscore;
+            }
+        }
+
+        function resetGame() {
+            clearInterval(timerInterval);
+            for (let i = 0; i < 25; i++) {
+                if (i === 12) {
+                    buttonArr[i].setAttribute("class", "buttonTarget");
+                    buttonArr[i].addEventListener("click", startGame);
+                } else {
+                    buttonArr[i].setAttribute("class", "buttonInactive");
+                }
+            }
+            score = 0;
+            playerScore.innerText = score;
+            timeLeft = 15;
+            timer.innerText = timeLeft;
+        }
+
+        function increment() {
+            // change button color after click
+            buttonArr[index].setAttribute("class", "buttonInactive");
+            // remove the event listener
+            buttonArr[index].removeEventListener("click", increment);
+            // increment score
+            score++;
+            playerScore.innerText = score;
+            console.log("incremented score");
+            // get random button index
+            index = Math.floor(Math.random() * 25);
+            // make target button red
+            buttonArr[index].setAttribute("class", "buttonTarget");
+            // add event listener
+            buttonArr[index].addEventListener("click", increment);
+        }
+
+        function updateTimer() {
+            timeLeft--;                     // decrement time
+            timer.textContent = timeLeft;   // update text
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                console.log("Time's up!!!")
+                endGame();
+            }
+        }
+
+    </script>
+</body>
+</html>
