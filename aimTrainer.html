@@ -40,10 +40,11 @@
 
 <div>
     <p>Welcome to the "Aim Trainer", a game where you race to click as many highlighted buttons as possible!</p>
+    <!-- display local storage status to user in top right of page -->
+    <p style="text-align: right">Browser has local storage: <span id="confirmLocalStorage"><strong>null</strong></span></p>
     <p>You will have 15 seconds, starting from the moment you click the initial red button, to click as many buttons as you can.<br>
         The next red button will be randomly selected at the moment you click the current red button, so be quick! :)
     </p>
-    <p><strong><span style="color:rgb(185, 0, 0)">NOTE:</span> High score will reset upon page refresh</strong></p>
     <strong><span style="font-size: 36px">Time remaining: <span id="timer">15</span> seconds</span><strong>
     <br>
     <strong><span style="font-size: 36px; color:rgb(31, 219, 106)">Score: <span id="playerScore">0</span></span></strong>
@@ -55,16 +56,37 @@
 <body style="background-color:rgb(158, 108, 129)" onload="initButtons()">
     <div class="buttonGrid" id="button-container"></div>
     <script>
+        // check if browser supports html5 local storage
+        if (typeof(Storage) !== "undefined") {
+            // store and retrieve test data
+            localStorage.hasLocalStorage = true;
+            document.getElementById("confirmLocalStorage").innerHTML = localStorage.hasLocalStorage;
+            document.getElementById("confirmLocalStorage").setAttribute("style", "color:lime");
+        } else {
+            // page behavior will be undefined
+            document.getElementById("confirmLocalStorage").innerHTML = "false";
+            document.getElementById("confirmLocalStorage").setAttribute("style", "color:red");
+        }
+
+        // define relevant variables
         const buttonArr = [];   // add buttons to this array
         var score = 0;  // track player score
-        var highscore = score;
         var index = 12; // start at center square
         var timeLeft = 15;
         var timerInterval;
         const playerHighScore = document.getElementById("playerHighScore"); // playerHighScore text
         const timer = document.getElementById("timer");             // in seconds
         const playerScore = document.getElementById("playerScore"); // playerScore text
+        // highscore:
+        if (localStorage.highscore) {
+            // make no changes
+            playerHighScore.innerText = localStorage.highscore;
+        } else {
+            // init highscore
+            localStorage.highscore = score;
+        }
 
+        // functions
         function initButtons() {
             for (let i = 0; i < 25; i++) {
                 // create a button
@@ -126,9 +148,9 @@
             for (let i = 0; i < buttonArr.length; i++) {
                 buttonArr[i].setAttribute("class", "buttonGameOver")
             }
-            if (score > highscore) {
-                highscore = score;
-                playerHighScore.innerText = highscore;
+            if (score > Number(localStorage.highscore)) {
+                localStorage.highscore = score;
+                playerHighScore.innerText = localStorage.highscore;
             }
         }
 

@@ -6,6 +6,8 @@
             <title>The Button Game</title>
         </head>
         <h1 style="text-align:center"> The Button Game </h1>
+        <!-- display local storage status to user in top left of page -->
+        <p style="text-align: left">Browser has local storage: <span id="confirmLocalStorage"><strong>null</strong></span></p>
         <p style="text-align:center"> The Button Game is a simple game I've made where you can click the button
             to increment your total score on this page. Have fun :)
         </p>
@@ -14,17 +16,44 @@
         <div style="text-align:center">
             <span>Your score: </span> <span id="playerScore">0</span>
             <div>
-                <button style="align-self:center;" onclick="increment()">CLICK ME!!!</button>
+                <button style="align-self:center; height: 40px; width: 90px;" onclick="increment()">CLICK ME!!!</button>
+                <br>
+                <button style="margin-top: 50px; color:white; background-color: firebrick;" onclick="reset()">Reset Score</button>
             </div>
             <!-- inline javascript code for the button -->
             <script>
-                let count = 0;
+                // check if browser supports html5 local storage
+                if (typeof(Storage) !== "undefined") {
+                    // store and retrieve test data
+                    localStorage.hasLocalStorage = true;
+                    document.getElementById("confirmLocalStorage").innerHTML = localStorage.hasLocalStorage;
+                    document.getElementById("confirmLocalStorage").setAttribute("style", "color:lime");
+                } else {
+                    // page behavior will be undefined
+                    document.getElementById("confirmLocalStorage").innerHTML = "false";
+                    document.getElementById("confirmLocalStorage").setAttribute("style", "color:red");
+                }
+
                 const playerScore = document.getElementById("playerScore");
 
+                if (localStorage.clicks) {
+                    // if clicks already exists as a number, leave alone
+                    playerScore.innerText = localStorage.clicks;
+                } else {
+                    localStorage.clicks = 0;
+                    playerScore.innerText = localStorage.clicks;
+                }
+
                 function increment() {
-                    count++; // increment the score
-                    playerScore.innerText = count;
+                    localStorage.clicks = Number(localStorage.clicks) + 1; // increment the score
+                    playerScore.innerText = localStorage.clicks;
                     console.log("incremented score")
+                }
+
+                function reset() {
+                    localStorage.clicks = 0;
+                    playerScore.innerText = localStorage.clicks;
+                    console.log("reset score");
                 }
             </script>
         </div>
