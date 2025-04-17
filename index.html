@@ -8,12 +8,31 @@
     </head>
     <div>
         <h1>Hi welcome to nathankhoury.com I am Nathan</h1>
-        <h2>This is one of my silly cats, his name is Tigger: <h2>
+        <h2>This is one of my silly cats, his name is Tigger: </h2>
         <img src="images/tigger1.jpg" alt="Tigger" width="300" height="400">
     </div>
     <div>
         <p style="color:teal">Click <a href="buttonGame_GAME/buttonGame.html">here</a> to go to "The Button Game" </p>
         <p style="color:rgb(158, 108, 129)">Click <a href="aimTrainer_GAME/aimTrainer.html">here</a> to go to "Aim Trainer" </p>
+        <p style="color:rgb(68, 68, 148)">Click <a href="clicker_GAME/clicker.html">here</a> to go to "Clicker Game" </p>
     </div>
+    <form id="wordForm" onsubmit="return word()">
+        <label for="secretWord">Do you have a super secret word/phrase?</label>
+        <input type="text" id="secretWord" name="secretWord">
+        
+    </div>
+<script>
+    function word() {
+        var input = document.getElementById("secretWord").value;
+        var word1 = "the monkey";
+
+        if (input.toLowerCase() === word1.toLowerCase()) {
+            window.location.href = "secretPages/themonkey.html";
+            return false;
+        }
+
+        document.getElementById("wordForm").reset();
+    }
+</script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+body {
+    background-color: rgb(68, 68, 148);
+}
+
+/* button style for the main "generator" button */
+.genButton {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+    color: gold;
+    font-size: 16px;
+    text-shadow: 2px 2px 2px black;  /* https://www.reddit.com/r/csshelp/comments/b3z3gp/how_to_i_make_text_with_black_outline/?rdt=62162 */
+    background: url("test.jpg");       /* https://www.w3schools.com/cssref/css3_pr_background.php */
+    background-size: 150px 150px;
+}
