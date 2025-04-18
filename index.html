@@ -23,11 +23,18 @@
     </div>
 <script>
     function word() {
+        // Hey! You shouldn't be snooping around my website code!
         var input = document.getElementById("secretWord").value;
         var word1 = "the monkey";
+        var word2 = "maxwell";
 
         if (input.toLowerCase() === word1.toLowerCase()) {
+            // THE MONKEY
             window.location.href = "secretPages/themonkey.html";
+            return false;
+        } else if (input.toLowerCase() === word2.toLowerCase()) {
+            // MAXWELL
+            window.location.href = "secretPages/maxwell.html";
             return false;
         }
 
