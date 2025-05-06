@@ -8,7 +8,6 @@ function tts() {
     speech.volume = 1;
     speech.rate = 1;
     speech.pitch = 1;
-    speech.voice = 
     // read input out
     window.speechSynthesis.speak(speech);
     // temp output for user (wip message)
