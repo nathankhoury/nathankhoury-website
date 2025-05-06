@@ -6,11 +6,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Welcome to talking ben</p>
+    <p>Welcome to talking ben. Ben visuals/audio coming soon
+        <br>Your response always automatically starts with: <strong>"Hey ben, I was wondering..."</strong>
+    </p>
+
+    <input type="checkbox" id="forceYesNo" name="forceYesNo" value="true">
+    <label for="forceYesNo">Force Yes/No reply</label> <br>
 
     <textarea id="userPrompt" placeholder="Type your message to ben!"></textarea>
     <button onclick="tts()">Send</button>
     <br>
+    <p id="benResponse"></p>
     <p id="tempOutput"></p>
     <a href="../index.html" style="color: rgb(119, 100, 131)">Return to home page</a>
     <script src="script.js"></script>
