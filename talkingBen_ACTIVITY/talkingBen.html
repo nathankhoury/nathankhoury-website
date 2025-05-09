@@ -6,19 +6,149 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p>Welcome to talking ben. Ben visuals/audio coming soon
-        <br>Your response always automatically starts with: <strong>"Hey ben, I was wondering..."</strong>
-    </p>
+    <!-- BEN AUDIO SFX -->
+    <!-- phone ring -->
+    <audio autoplay id="ring" onended="answerAudio()">
+        <source src="audio/ben-phone-ring.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
 
-    <input type="checkbox" id="forceYesNo" name="forceYesNo" value="true">
-    <label for="forceYesNo">Force Yes/No reply</label> <br>
+    <!-- phone answer -->
+    <audio id="answer">
+        <source src="audio/ben-phone-answer.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
 
-    <textarea id="userPrompt" placeholder="Type your message to ben!"></textarea>
-    <button onclick="tts()">Send</button>
-    <br>
-    <p id="benResponse"></p>
-    <p id="tempOutput"></p>
-    <a href="../index.html" style="color: rgb(119, 100, 131)">Return to home page</a>
+    <!-- hang up -->
+    <audio id="hangup">
+        <source src="audio/ben-hang-up.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
+
+    <!-- yes -->
+    <audio id="yes">
+        <source src="audio/ben-yes.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
+
+    <!-- no -->
+    <audio id="no">
+        <source src="audio/ben-no.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
+
+    <!-- ho ho ho -->
+    <audio id="hohoho">
+        <source src="audio/ben-ho-ho-ho.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
+
+    <!-- ugh -->
+    <audio id="ugh">
+        <source src="audio/ben-ugh.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
+
+    <!-- ben -->
+    <audio id="ben">
+        <source src="audio/ben-saying-ben.mp3" type="audio/mpeg">
+        Your browser is not supporting the audio element
+    </audio>
+
+    <!-- style="display: none;" can hide the whole div -->
+    <div style="text-align: center;">
+        <h1>Welcome to talking ben!</h1>
+        <p style="font-size: 24px;">Your response always automatically starts with: <strong>"Hey ben..."</strong></p>
+        <div style="text-align: center;"> <a href="../index.html" style="color: rgb(119, 100, 131)">Return to home page</a> </div>
+        
+        <!-- ben t pose picture -->
+        <img src="images/ben.webp" alt="Ben" width="200" height="200"> <br>
+
+        <!-- force a yes or no answer from ben -->
+        <input type="checkbox" id="forceYesNo" name="forceYesNo" value="true">
+        <label for="forceYesNo">Force Yes/No reply</label> <br>
+
+        <!-- text field -->
+        <textarea rows="5" cols="100" id="userPrompt" placeholder="Type your message to ben!"></textarea> <br>
+        <button style="width: 100px; height: 40px;" onclick="tts()">Send to Ben</button>
+
+        <!-- ben's response -->
+        <br>
+        <p style="font-size: 48px;" id="benResponse"></p>    
+    </div>
+
+    <!-- ben answering the phone gif -->
+    <div id="benPhone" style="display: flex; justify-content: center;">
+        <div class="tenor-gif-embed" 
+            data-postid="25083332" 
+            data-share-method="host" 
+            data-aspect-ratio="0.7875" 
+            data-width="20%">
+            <a href="https://tenor.com/view/ben-talking-ben-ben-talking-talking-ben-call-ben-call-gif-25083332">Ben Talking Ben GIF</a>
+            from <a href="https://tenor.com/search/ben-gifs">Ben GIFs</a></div>
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+
+    <!-- ben yes gif -->
+    <div id="benYes" style="display: none; justify-content: center;">
+        <div class="tenor-gif-embed" 
+            data-postid="25061537" 
+            data-share-method="host" 
+            data-aspect-ratio="0.9" 
+            data-width="20%">
+            <a href="https://tenor.com/view/talking-ben-yes-gif-25061537">Talking Ben Yes GIF</a>
+            from <a href="https://tenor.com/search/talking+ben-gifs">Talking Ben GIFs</a></div> 
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+
+    <!-- ben no gif -->
+     <div id="benNo" style="display: none; justify-content: center;">
+        <div class="tenor-gif-embed" 
+             data-postid="25061558" 
+             data-share-method="host" 
+             data-aspect-ratio="0.8875" 
+             data-width="20%">
+             <a href="https://tenor.com/view/talking-ben-no-gif-25061558">Talking Ben No GIF</a>
+             from <a href="https://tenor.com/search/talking+ben-gifs">Talking Ben GIFs</a></div> 
+             <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+     </div>
+
+    <!-- ben says ben gif -->
+    <div id="benBen" style="display: none; justify-content: center;">
+        <div class="tenor-gif-embed" 
+            data-postid="24964442" 
+            data-share-method="host" 
+            data-aspect-ratio="0.665625" 
+            data-width="20%">
+            <a href="https://tenor.com/view/%D7%A2%D7%9E%D7%99%D7%AA-amit-ben-talking-ben-gif-24964442">עמית Amit GIF</a>
+            from <a href="https://tenor.com/search/%D7%A2%D7%9E%D7%99%D7%AA-gifs">עמית GIFs</a></div> 
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+
+    <!-- ben ugh gif -->
+    <div id="benUgh" style="display: none; justify-content: center;">
+        <div class="tenor-gif-embed" 
+             data-postid="25061556" 
+             data-share-method="host" 
+             data-aspect-ratio="0.9" 
+             data-width="20%">
+             <a href="https://tenor.com/view/talking-ben-ugh-gif-25061556">Talking Ben Ugh GIF</a>
+             from <a href="https://tenor.com/search/talking+ben-gifs">Talking Ben GIFs</a></div> 
+             <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div> 
+    
+    <!-- ben hohoho gif -->
+    <div id="benHoHoHo" style="display: none; justify-content: center;">
+        <div class="tenor-gif-embed" 
+             data-postid="25061559" 
+             data-share-method="host" 
+             data-aspect-ratio="0.90625" 
+             data-width="20%">
+             <a href="https://tenor.com/view/talking-ben-laugh-ho-ho-ho-gif-25061559">Talking Ben Laugh GIF</a>
+             from <a href="https://tenor.com/search/talking+ben-gifs">Talking Ben GIFs</a></div>
+             <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
